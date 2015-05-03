@@ -7,10 +7,15 @@
 
 get_screenshot() {
 
+	local xwd=`which xwd` # standard xorg tool
 	local scrot=`which scrot` # scrot is lighter
 	local import=`which import` # imagemagick
 
-	if [ -n "$scrot" ]; then
+	if [ -n "$xwd" ]; then
+ 
+		/usr/bin/xwd -display :0 -root | convert - $session__screenshot 
+
+	elif [ -n "$scrot" ]; then
 
 		run_as_current_user "$scrot $session__screenshot"
 
